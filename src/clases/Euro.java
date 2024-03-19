@@ -5,7 +5,7 @@ public class Euro implements Moneda{
 	@Override
 	public String getSimbolo() {
 		// TODO Auto-generated method stub
-		return "EUR";
+		return "EU";
 	}
 	
 	@Override
