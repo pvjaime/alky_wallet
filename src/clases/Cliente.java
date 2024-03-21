@@ -4,7 +4,7 @@ public class Cliente {
 	//Atributos de una clase
 	long id;
 	String nombre;
-	CuentaBancaria cuenta;
+	CuentaBancariaOld cuenta;
 	
 	/**
 	 * Constructor Vacio
@@ -18,7 +18,7 @@ public class Cliente {
 	 * @param nombre
 	 * @param cuenta
 	 */
-	public Cliente(long id, String nombre, CuentaBancaria cuenta) {
+	public Cliente(long id, String nombre, CuentaBancariaOld cuenta) {
 		this.id = id;
 		this.nombre = nombre;
 		this.cuenta = cuenta;
@@ -55,14 +55,14 @@ public class Cliente {
 	/**
 	 * @return the cuenta
 	 */
-	public CuentaBancaria getCuenta() {
+	public CuentaBancariaOld getCuenta() {
 		return cuenta;
 	}
 
 	/**
 	 * @param cuenta the cuenta to set
 	 */
-	public void setCuenta(CuentaBancaria cuenta) {
+	public void setCuenta(CuentaBancariaOld cuenta) {
 		this.cuenta = cuenta;
 	}
 	

@@ -3,7 +3,7 @@ package wallet;
 import java.util.Scanner;
 
 import clases.Cliente;
-import clases.CuentaBancaria;
+import clases.CuentaBancariaOld;
 import clases.CuentaUSD;
 import clases.Efectivo;
 import clases.FormaPago;
@@ -53,7 +53,7 @@ public class Main {
 		String nombreCliente = lector.nextLine();
 		nuevoCliente.setNombre(nombreCliente);
 		// Al nuevo cliente le creare la cuenta
-		CuentaBancaria nuevaCuenta = crearCuenta(nombreCliente);
+		CuentaBancariaOld nuevaCuenta = crearCuenta(nombreCliente);
 		nuevoCliente.setCuenta(nuevaCuenta);
 
 		/*
@@ -69,8 +69,8 @@ public class Main {
 	 * @param nombre que el usario ingreso al momento de crear al cliente
 	 * @return la cuenta con los datos completos
 	 */
-	public static CuentaBancaria crearCuenta(String nombre) {
-		CuentaBancaria cuentaBancaria = new CuentaBancaria();
+	public static CuentaBancariaOld crearCuenta(String nombre) {
+		CuentaBancariaOld cuentaBancaria = new CuentaBancariaOld();
 		System.out.println("-- Paso 2 --");
 		Scanner lector = new Scanner(System.in);
 		System.out.println("Ingresa el numero de cuenta: ");

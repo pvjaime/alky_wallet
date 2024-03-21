@@ -1,6 +1,6 @@
 package clases;
 
-public class CuentaUSD extends CuentaBancaria{
+public class CuentaUSD extends CuentaBancariaOld{
 	
 	Dolar dolarConversion = new Dolar();
 	

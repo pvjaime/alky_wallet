@@ -1,6 +1,6 @@
 package clases;
 
-public class CuentaPesoCL extends CuentaBancaria {
+public class CuentaPesoCL extends CuentaBancariaOld {
 	
 	@Override
 	public void ingresarDinero(double montoIngresado) {
