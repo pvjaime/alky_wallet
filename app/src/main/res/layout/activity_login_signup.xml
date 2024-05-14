@@ -37,13 +37,11 @@
         style="@style/boton_celeste"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:layout_marginBottom="50dp"
         android:text="@string/btn_crear_cuenta"
         app:layout_constraintBottom_toTopOf="@+id/txt_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView" />
 
     <Button
         android:id="@+id/txt_login"
