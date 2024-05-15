@@ -7,28 +7,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import perez.jaime.alkewalet.databinding.ActivitySplashScreenBinding
 import java.util.Timer
 import java.util.TimerTask
 
 class SplashScreenActivity : AppCompatActivity() {
 
+    lateinit var binding: ActivitySplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         //Esta es la linea que dice que xml va a mostrar
-        setContentView(R.layout.activity_splash_screen)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         /**
          * Abiendo la pantalla con un click
 
          */
         //Se declara la imagen como una variable
-        val logoApp = findViewById<ImageView>(R.id.logoApp)
-        logoApp.setOnClickListener {
+        binding.logoApp.setOnClickListener {
             val abrirPantallaLogin = Intent(this, LoginSignupActivity::class.java)
-            abrirPantallaLogin.putExtra("nombre", "Jaime")
-            abrirPantallaLogin.putExtra("apellido", "Perez")
-            abrirPantallaLogin.putExtra("acepto_tyC", false)
             startActivity(abrirPantallaLogin)
+            finish()
         }
 
         /**
@@ -37,10 +37,8 @@ class SplashScreenActivity : AppCompatActivity() {
         var task: TimerTask? = object : TimerTask() {
             override fun run() {
                 val abrirPantallaLogin = Intent(baseContext, LoginSignupActivity::class.java)
-                abrirPantallaLogin.putExtra("nombre", "Jorge")
-                abrirPantallaLogin.putExtra("apellido", "Android")
-                abrirPantallaLogin.putExtra("acepto_tyC", true)
                 startActivity(abrirPantallaLogin)
+                finish()
             }
         }
 
