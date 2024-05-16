@@ -19,17 +19,17 @@
             android:name=".CreateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginSignupActivity"
+            android:name=".view.LoginSignupActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".view.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

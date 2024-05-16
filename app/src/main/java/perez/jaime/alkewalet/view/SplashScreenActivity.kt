@@ -1,12 +1,12 @@
-package perez.jaime.alkewalet
+package perez.jaime.alkewalet.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import perez.jaime.alkewalet.R
 import perez.jaime.alkewalet.databinding.ActivitySplashScreenBinding
 import java.util.Timer
 import java.util.TimerTask

@@ -1,13 +1,13 @@
-package perez.jaime.alkewalet
+package perez.jaime.alkewalet.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import perez.jaime.alkewalet.CreateAccountActivity
+import perez.jaime.alkewalet.R
 import perez.jaime.alkewalet.databinding.ActivityLoginSignupBinding
 
 class LoginSignupActivity : AppCompatActivity() {
