@@ -1,10 +1,10 @@
 package perez.jaime.alkewalet.model
 
 data class User (
-    val firstName: String,
-    val lastName: String,
+    val first_name: String,
+    val last_name: String,
     val email: String,
     val password: String,
-    val roleID: Long,
-    val points: Long
+    val roleId: Long = 2,
+    val points: Long = 0
 )
