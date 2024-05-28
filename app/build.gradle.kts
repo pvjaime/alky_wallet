@@ -49,8 +49,10 @@ dependencies {
 
     //Implementar las librerias necesarias para el proyecto
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
+
+    //Implementar las liberias para el uso de Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     //Test
     testImplementation(libs.junit)
