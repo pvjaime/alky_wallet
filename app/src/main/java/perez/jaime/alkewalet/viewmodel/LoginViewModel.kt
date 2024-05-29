@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import perez.jaime.alkewalet.AlkeWalletApp.Companion.tokenAcesso
 import perez.jaime.alkewalet.model.LoginRequest
 import perez.jaime.alkewalet.model.LoginResponse
 import perez.jaime.alkewalet.model.User
@@ -18,8 +19,12 @@ import retrofit2.Response
  * View model encargado de hacer el Login de la app
  */
 class LoginViewModel : ViewModel() {
-    //Variable LiveData que va a informar a la vista el login
-    val loginResultLiveData = MutableLiveData<Boolean>()
+    //Variable LiveData que va a informar el token al login
+    val tokenLiveData = MutableLiveData<String>()
+    //Variable LiveData que va a informar mensaje de error
+    val errorLiveData = MutableLiveData<String>()
+    //Variable LiveData que va a informar cuando tenga la informacion del usuario
+    val usuarioLiveData = MutableLiveData<User>()
 
     /**
      * funcion que implementa una corrrutina para llamar a la Api
@@ -29,7 +34,7 @@ class LoginViewModel : ViewModel() {
             try {
                 //Aca nosotros vamos a llamar a la API
                 //Esta es la intancia de retrofit
-                var login: LoginService = RetrofitIntancia.retrofit.create(LoginService::class.java)
+                val login: LoginService = RetrofitIntancia.retrofit.create(LoginService::class.java)
                 //Se crea esa variable que va a manejar la respuesta del servicio
                 val llamadaApi: Call<LoginResponse> = login.hacerLogin(
                     LoginRequest(
@@ -50,30 +55,68 @@ class LoginViewModel : ViewModel() {
                             val respuesta: LoginResponse? = response.body()
                             //Como se logeo correctamente si me trae el dato del Token
                             if (respuesta?.accessToken != null) {
-                                loginResultLiveData.postValue(true)
-                            //Si no me logeo entonces muestro un error o muestro la respuesta
+                                tokenLiveData.postValue(respuesta.accessToken)
+                                errorLiveData.postValue(null)
+                                //Si no me logeo entonces muestro un error o muestro la respuesta
                             } else {
                                 //aqui si hay un error se ejecuta este codigo
-                                loginResultLiveData.postValue(false)
+                                tokenLiveData.postValue(null)
+                                errorLiveData.postValue(respuesta?.error)
                             }
-                        //Si la respuesta no es un codigo entre 200 o 300, hubo un error
+                            //Si la respuesta no es un codigo entre 200 o 300, hubo un error
                         } else {
+                            val respuestaError: LoginResponse? = response.body()
                             //aqui si hay un error se ejecuta este codigo
-                            loginResultLiveData.postValue(false)
+                            tokenLiveData.postValue(null)
+                            errorLiveData.postValue(respuestaError?.error)
                         }
                     }
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         //aqui si hay un error se ejecuta este codigo
-                        loginResultLiveData.postValue(false)
+                        tokenLiveData.postValue(null)
+                        errorLiveData.postValue(null)
                     }
 
                 })
 
             } catch (e: Exception) {
                 //aqui si hay un error se ejecuta este codigo
-                loginResultLiveData.postValue(false)
+                tokenLiveData.postValue(null)
+                errorLiveData.postValue(null)
             }
         }
     }
+
+    /**
+     * Funcion que va a obtener la informacion del usuario
+     */
+    fun obtenerDatosUser() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val getUsuario = RetrofitIntancia.retrofit.create(LoginService::class.java)
+                val token = "Bearer $tokenAcesso"
+                val usuarioLlamada : Call<User> = getUsuario.obtenerInfoLogin(token)
+                usuarioLlamada.enqueue(object : Callback<User> {
+                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                        if (response.isSuccessful){
+                            val usuarioLogin = response.body()
+                            usuarioLiveData.postValue(usuarioLogin)
+                        }else{
+                            usuarioLiveData.postValue(null)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                        usuarioLiveData.postValue(null)
+                    }
+                })
+
+            } catch (e: Exception) {
+                //aqui si hay un error se ejecuta este codigo
+                usuarioLiveData.postValue(null)
+            }
+        }
+    }
+
 }

@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import perez.jaime.alkewalet.AlkeWalletApp.Companion.tokenAcesso
+import perez.jaime.alkewalet.AlkeWalletApp.Companion.usuarioLogeado
 import perez.jaime.alkewalet.HomeActivity
 import perez.jaime.alkewalet.R
 import perez.jaime.alkewalet.databinding.ActivityLoginBinding
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
         //Vamos a verificar si el usaurio ya me guardo el correo
         val correo = sharedPreferences.getString("correo_ingresado", null)
         //si el dato es distinto de null lo voy a prerrellenar
-        if (correo != null){
+        if (correo != null) {
             binding.txtEmail.setText(correo)
         }
         //Configurando en onClick
@@ -53,13 +54,22 @@ class LoginActivity : AppCompatActivity() {
             viewModel.hacerLogin(correoIngresado, passwordIngresado)
         }
 
-        //Se configura el observador que va a estar observando al sujeto "loginResultLiveData"
-        viewModel.loginResultLiveData.observe(this){ loginOk ->
-            if (loginOk == true){
+        //Se configura el observador que va a estar observando al sujeto "tokenLiveData"
+        viewModel.tokenLiveData.observe(this) { token ->
+            if (token != null) {
+                //Vamos a guardar el token en la variable global de la aplicación
+                tokenAcesso = token
+                //vamos a llamar a la API para obtener la informacion del usuario
+                viewModel.obtenerDatosUser()
+            }
+        }
+
+        //Se configura el observador que va a estar observando al sujeto "usuarioLiveData"
+        viewModel.usuarioLiveData.observe(this) { usuario ->
+            if (usuario != null) {
+                usuarioLogeado = usuario
                 val irMenuPrincipal = Intent(this, HomeActivity::class.java)
                 startActivity(irMenuPrincipal)
-            }else{
-                Toast.makeText(this, "Datos Invalidos", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -68,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
 
 
     }

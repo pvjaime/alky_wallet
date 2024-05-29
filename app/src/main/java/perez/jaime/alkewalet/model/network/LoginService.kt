@@ -21,7 +21,10 @@ interface LoginService {
     @POST("auth/login")
     fun hacerLogin(@Body request: LoginRequest): Call<LoginResponse>
 
-
+    /**
+     * Servicio que obtiene la informacion del usuario que se logeo
+     * Recine como parametro el Token como header con la palabra Bearer
+     */
     @GET("auth/me")
     fun obtenerInfoLogin(
         @Header("Authorization") token: String
