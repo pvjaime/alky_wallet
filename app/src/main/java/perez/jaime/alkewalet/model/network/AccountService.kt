@@ -9,10 +9,4 @@ import retrofit2.http.Query
 
 interface AccountService {
 
-
-    @GET("auth/me")
-    fun obtenerInfoLogin(
-        @Header("Authorization") token: String
-    ): Call<User>
-
 }

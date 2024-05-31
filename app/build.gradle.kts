@@ -53,6 +53,7 @@ dependencies {
     //Implementar las liberias para el uso de Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     //Test
     testImplementation(libs.junit)
